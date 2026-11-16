@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICP Course Site</title>
+<meta http-equiv="refresh" content="0; url=https://icp-course-site.web.app/">
+<link rel="canonical" href="https://icp-course-site.web.app/">
+<script>
+  // coachw.club/icp/anything -> icp-course-site.web.app/anything (keeps level links like /icp/go/m1-l2 working)
+  (function () {
+    var rest = location.pathname.replace(/^\/icp(\/|$)/, "/");
+    location.replace("https://icp-course-site.web.app" + rest + location.search + location.hash);
+  })();
+</script>
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #EEE8FF; color: #1B1B1B; font: 18px/1.5 system-ui, sans-serif; padding: 16px; box-sizing: border-box; }
+  a { color: #1B1B1B; font-weight: 700; }
+</style>
+</head>
+<body>
+  <p>Opening the ICP Course Site. If nothing happens, <a href="https://icp-course-site.web.app/">click here</a>.</p>
+</body>
+</html>
