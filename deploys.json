@@ -112,5 +112,43 @@
       "xlsx-YQ4lDkt_.js",
       "zip-CNoH5wBR.js"
     ]
+  },
+  {
+    "id": "20261118233214",
+    "assets": [
+      "Admin-Cmr3MIBL.js",
+      "AttemptPage-BM938QiQ.js",
+      "Dashboard-CqBljQa1.js",
+      "DueDates-BUofKqa8.js",
+      "Gradebook-Xl4Lhwqk.js",
+      "Grades--wKs41o_.js",
+      "GradesOverview-Bq5dyvhu.js",
+      "History-Deqpnu6r.js",
+      "Leaderboard-Dqlv5k1F.js",
+      "OpenDyslexic-400-B-RY0UjG.woff",
+      "OpenDyslexic-600-800-icBInVCR.woff",
+      "OpenDyslexicMono-regular-gxm3DkwB.ttf",
+      "Playground-k0IghqhW.js",
+      "Profile-BpTGGfo5.js",
+      "Reports-Ba1CmPIc.js",
+      "Review-BKcgmxlX.js",
+      "Room3D-tu9r1ir2.js",
+      "Students-ldAytdP0.js",
+      "TeacherLayout-BFH0cESo.js",
+      "bricolage-latin-CtikI8OQ.woff2",
+      "bricolage-latin-ext-U1a6rBFp.woff2",
+      "catalog-C9_sHdzA.js",
+      "hash.worker-B0MclcxJ.js",
+      "index-B0bFDmrE.js",
+      "index-DwtntbTz.css",
+      "index.esm-Clvvd6Aq.js",
+      "spacemono-400-latin-Wy3NpCq4.woff2",
+      "spacemono-400-latin-ext-CQTzDtZb.woff2",
+      "spacemono-700-latin-6NnW1qxO.woff2",
+      "spacemono-700-latin-ext-C1sZ6Lj5.woff2",
+      "src-DG3ZKN36.js",
+      "xlsx-YQ4lDkt_.js",
+      "zip-DURzA1nN.js"
+    ]
   }
 ]
