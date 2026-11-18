@@ -1,5 +1,4 @@
-# icp
+# ICP Course Site, published build
 
-Redirect for `coachw.club/icp`. GitHub Pages serves this repo at `www.coachw.club/icp/`. Every path forwards to the ICP Course Site on Firebase, so `coachw.club/icp/go/m1-l2` opens that level. `404.html` is a copy of `index.html` so deep links work.
-
-The source lives in the icp-course-site repo under `deploy/coachw-icp/`.
+This repo is the built site served at https://coachw.club/icp/ by GitHub Pages. Do not edit it by hand.
+The source lives in the private repo grannyconger/icp-course-site. Publish with `npm run deploy:pages` there.
