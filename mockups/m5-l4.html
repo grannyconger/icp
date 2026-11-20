@@ -123,6 +123,11 @@ html.dys .pdfbtn,html.dys .count{font-size:16px;letter-spacing:0}
 html.dys .tag{opacity:.75}
 html.dys *{font-style:normal !important}
 
+/* Coach, Nov 19 2026: program statement syntax can't be selected. Test values sit in the code font on gray. */
+.prog,.cshape,.block,.xb{-webkit-user-select:none;user-select:none}
+code.val{font-family:'Space Mono',monospace;font-size:.92em;font-weight:700;background:#ececec;border:1px solid #b5b5b5;border-radius:5px;padding:0 4px;white-space:pre-wrap}
+i.cval{font-style:italic;font-weight:600}
+.stmt-name{font-family:'Space Mono',monospace;font-size:.92em;border-radius:4px;padding:0 3px}.stmt-ui{background:#FDF5B0}.stmt-math{background:#FFE3C2}
 .inp{background:#f2f2f2;border:1px solid #4d575f;border-radius:4px;color:#9aa0a6;font-family:Arial,sans-serif;font-size:13px;padding:5px 15px;display:flex;align-items:center;overflow:hidden;white-space:nowrap}
 .dd{background:#fff;border:1px solid #000;border-radius:4px;color:#4d575f;font-family:Arial,sans-serif;font-size:13px;padding:0 30px 0 15px;display:flex;align-items:center}
 .dd::after{content:"";position:absolute;right:10px;top:11px;border:5px solid transparent;border-top:7px solid #4d575f}
@@ -289,7 +294,7 @@ body .prog .stmtcol > .block{border-style:solid;border-width:1px 2px 3px 1px;bor
     <div class="testbar">
       <details>
         <summary><span class="tb-title">Test it</span><span class="tb-meta">3 tests to run in App Lab</span><span class="tb-chev" aria-hidden="true"></span></summary>
-        <ol class="tlist fit"><li class="titem"><span class="tnum">1</span><div class="tbody"><div class="tdo"><span class="tk">Do</span><div class="tsteps"><span class="tstep">Check radio_buttonEvening</span></div></div><div class="tdo"><span class="tk">Check</span><ul class="texp"><li>labelShow reads &quot;Evening, 7 PM&quot;</li></ul></div></div></li><li class="titem"><span class="tnum">2</span><div class="tbody"><div class="tdo"><span class="tk">Do</span><div class="tsteps"><span class="tstep">Choose Dino Park in dropdownMovie</span><span class="tarrow" aria-hidden="true">&#8594;</span><span class="tstep">Type 3 in text_inputTickets</span><span class="tarrow" aria-hidden="true">&#8594;</span><span class="tstep">Click buttonBuy</span></div></div><div class="tdo"><span class="tk">Check</span><ul class="texp"><li>labelMovie reads &quot;Dino Park&quot;</li><li>labelTotal reads &quot;Total: $24&quot;</li><li>labelTotal background-color changed</li></ul></div></div></li><li class="titem"><span class="tnum">3</span><div class="tbody"><div class="tdo"><span class="tk">Do</span><div class="tsteps"><span class="tstep">Click buttonReset</span></div></div><div class="tdo"><span class="tk">Check</span><ul class="texp"><li>text_inputTickets is empty</li><li>radio_buttonEvening is not checked</li><li>labelShow reads nothing (empty)</li><li>labelMovie reads nothing (empty)</li><li>labelTotal reads nothing (empty)</li></ul></div></div></li></ol>
+        <ol class="tlist fit"><li class="titem"><span class="tnum">1</span><div class="tbody"><div class="tdo"><span class="tk">Do</span><div class="tsteps"><span class="tstep">Check radio_buttonEvening</span></div></div><div class="tdo"><span class="tk">Check</span><ul class="texp"><li>labelShow reads <code class="val">Evening, 7 PM</code></li></ul></div></div></li><li class="titem"><span class="tnum">2</span><div class="tbody"><div class="tdo"><span class="tk">Do</span><div class="tsteps"><span class="tstep">Choose <code class="val">Dino Park</code> in dropdownMovie</span><span class="tarrow" aria-hidden="true">&#8594;</span><span class="tstep">Type <code class="val">3</code> in text_inputTickets</span><span class="tarrow" aria-hidden="true">&#8594;</span><span class="tstep">Click buttonBuy</span></div></div><div class="tdo"><span class="tk">Check</span><ul class="texp"><li>labelMovie reads <code class="val">Dino Park</code></li><li>labelTotal reads <code class="val">Total: $24</code></li><li>labelTotal background-color changed</li></ul></div></div></li><li class="titem"><span class="tnum">3</span><div class="tbody"><div class="tdo"><span class="tk">Do</span><div class="tsteps"><span class="tstep">Click buttonReset</span></div></div><div class="tdo"><span class="tk">Check</span><ul class="texp"><li>text_inputTickets is empty</li><li>radio_buttonEvening is not checked</li><li>labelShow reads nothing (empty)</li><li>labelMovie reads nothing (empty)</li><li>labelTotal reads nothing (empty)</li></ul></div></div></li></ol>
       </details>
     </div></div>
   <div class="side">
@@ -319,7 +324,7 @@ body .prog .stmtcol > .block{border-style:solid;border-width:1px 2px 3px 1px;bor
 </div>
 <script>
 (function fitToWindow(){var r=document.documentElement,b=document.body;
-function fit(){var f=Math.min(window.innerWidth/1920,window.innerHeight/1080,1);b.style.transform=f<1?'scale('+f+')':'';r.style.height=f<1?(1080*f)+'px':'';}
+function fit(){var fw=Math.min(window.innerWidth/1920,1),fh=window.innerHeight/1080,f=fh<fw*0.75?fw:Math.min(fw,fh);document.documentElement.classList.toggle('short',fh<fw*0.75);b.style.transform=f<1?'scale('+f+')':'';r.style.height=f<1?(1080*f)+'px':'';}
 fit();window.addEventListener('resize',fit);
 if(window.matchMedia){window.matchMedia('print').addEventListener('change',function(e){if(e.matches){b.style.transform='';r.style.height='';}else fit();});}})();
 (function(){var b=document.getElementById('dysToggle'),r=document.documentElement;
@@ -405,5 +410,25 @@ b.addEventListener('click',function(){set(!r.classList.contains('dys'))});})();
   window.addEventListener("load", function () { fit(); setTimeout(fit, 250); });
   window.addEventListener("beforeprint", fit);
   if (window.matchMedia) window.matchMedia("print").addEventListener("change", fit);
+})();
+</script><script>
+(function () {
+  var CODE = ".prog, .cshape, .block, .xb";
+  function touches() {
+    var s = document.getSelection();
+    if (!s || !s.rangeCount || s.isCollapsed) return false;
+    for (var i = 0; i < s.rangeCount; i++) {
+      var r = s.getRangeAt(i), n = r.commonAncestorContainer, el = n.nodeType === 1 ? n : n.parentElement;
+      if (!el) continue;
+      if (el.closest(CODE)) return true;
+      var all = el.querySelectorAll(CODE);
+      for (var j = 0; j < all.length; j++) if (r.intersectsNode(all[j])) return true;
+    }
+    return false;
+  }
+  function block(e) { if (touches()) { e.preventDefault(); if (e.clipboardData) e.clipboardData.setData("text/plain", ""); } }
+  document.addEventListener("copy", block);
+  document.addEventListener("cut", block);
+  document.addEventListener("dragstart", function (e) { if ((e.target.closest && e.target.closest(CODE)) || touches()) e.preventDefault(); });
 })();
 </script></body></html>
