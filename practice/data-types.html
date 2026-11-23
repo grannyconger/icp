@@ -130,7 +130,7 @@ button{font:inherit; color:var(--ink); cursor:pointer}
     <div class="head-row">
       <div style="display:flex;flex-direction:column;gap:8px">
         <h1>Data Types Crash Course</h1>
-        <p class="sub">Strings, numbers, concatenation, and operators. 20 short exercises, about 20 minutes.</p>
+        <p class="sub">Strings, numbers, concatenation, operators, and math statements. 25 short exercises, about 25 minutes.</p>
       </div>
       <button class="btn" id="fsBtn" type="button">Full screen</button>
     </div>
@@ -171,6 +171,12 @@ const TOPICS = [
       ["operator", "A symbol that does math: <code>+</code> add, <code>-</code> subtract, <code>*</code> multiply, <code>/</code> divide, <code>%</code> remainder."],
       ["<code>%</code> remainder", "What is left over after dividing. <code>17 % 5</code> is 2, because 5 goes into 17 three times with 2 left."],
       ["Order of operations", "App Lab does <code>*</code> <code>/</code> <code>%</code> before <code>+</code> <code>-</code>. Parentheses always go first."]
+    ]},
+  { id:"math", name:"Math statements",
+    vocab:[
+      ["Math.round", "Rounds a number to the nearest whole number. <code>Math.round(4.6)</code> is 5. A .5 rounds up."],
+      ["randomNumber(min, max)", "Gives a random whole number from min to max. Both ends can come up. <code>randomNumber(1, 6)</code> can give 1, 6, or anything between."],
+      ["Why use them?", "Math.round cleans up prices and averages. randomNumber makes dice and games turn out different each time."]
     ]}
 ];
 
@@ -285,7 +291,37 @@ const EX = [
            [/\+\s*\(\s*getNumber\([^)]*\)\s*\+\s*4\s*\)/, "That adds 4. Tickets cost $4 each, so multiply."],
            [/\+\s*4\s*\)?\s*\)\s*;?\s*$/, "The last + joins, because the left side is a string. Which operator multiplies?"]],
     why:'* goes before +, so App Lab does 3 * 4 first and gets 12. Then + joins 12 onto "Total: $".',
-    model:'setText("labelTotal", "Total: $" + getNumber("text_inputTickets") * 4);' }
+    model:'setText("labelTotal", "Total: $" + getNumber("text_inputTickets") * 4);' },
+
+  // ---------- MATH STATEMENTS ----------
+  { id:"m1", topic:"math", kind:"sort", prompt:"Does each one give the same value every time, or can it change? Click one for each.",
+    options:["Same every time","Can change"],
+    items:[['Math.round(4.6)',0],['randomNumber(1, 6)',1],['6 * 7',0],['randomNumber(0, 1)',1],['Math.round(9.99)',0]],
+    why:"randomNumber picks a new number each time it runs. Math.round and operators give the same answer every time." },
+  { id:"m2", topic:"math", kind:"show", prompt:"What shows in the console?",
+    code:'console.log(Math.round(4.6));', answers:["5"],
+    wrong:{"4":"Math.round goes to the nearest whole number. 4.6 is closer to 5.", "4.6":"Math.round changes 4.6 into a whole number."},
+    why:"4.6 is closer to 5 than to 4, so Math.round gives 5." },
+  { id:"m3", topic:"math", kind:"show", prompt:"What shows in the console? The * is nested inside Math.round.",
+    code:'console.log(Math.round(7.25 * 2));', answers:["15"],
+    wrong:{"14":"7.25 * 2 is 14.5. A .5 rounds up.", "14.5":"That is 7.25 * 2. Now Math.round makes it a whole number.", "7":"Do the nested part first. 7.25 * 2 is 14.5."},
+    why:"App Lab does the nested part first. 7.25 * 2 is 14.5. Then Math.round rounds the .5 up to 15." },
+  { id:"m4", topic:"math", kind:"write", prompt:"Write a line that makes labelRoll show a random number from 1 to 100.",
+    answers:['setText("labelRoll",randomNumber(1,100))'],
+    hints:[[/"randomNumber/, "With quotes, labelRoll shows the word randomNumber. Take those quotes off so App Lab runs it."],
+           [/Math\.random/, "In App Lab, use randomNumber(1, 100)."],
+           [/setText\(\s*labelRoll/, "The element ID is a string. Put quotes around labelRoll."],
+           [/randomNumber\(\s*100\s*,\s*1\s*\)/, "Put the smallest number first, then the biggest."],
+           [/randomNumber\(\s*0\s*,/, "The task says from 1 to 100. Start at 1."]],
+    why:"randomNumber(1, 100) picks a new whole number each time. setText puts it on labelRoll.",
+    model:'setText("labelRoll", randomNumber(1, 100));' },
+  { id:"m5", topic:"math", kind:"fix", prompt:"This dice roll sometimes shows 0. A die only has 1 to 6. Fix it.",
+    code:'console.log(randomNumber(0, 6));', answers:['console.log(randomNumber(1,6))'],
+    hints:[[/randomNumber\(\s*0\s*,\s*5\s*\)/, "Now it can never show 6. Both numbers can come up, so use 1 and 6."],
+           [/randomNumber\(\s*1\s*,\s*7\s*\)/, "Now it can show 7. Both numbers can come up, so use 1 and 6."],
+           [/randomNumber\(\s*6\s*,\s*1\s*\)/, "Put the smallest number first."]],
+    why:"randomNumber includes both numbers. randomNumber(1, 6) can give 1, 2, 3, 4, 5, or 6, just like a die.",
+    model:'console.log(randomNumber(1, 6));' }
 ];
 
 /* ---------- state ---------- */
