@@ -34,6 +34,8 @@
 body{margin:0; background:var(--page); color:var(--text); font-family:var(--f-head); font-size:18px; line-height:1.5;
   padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:24px 64px}
 .wrap{max-width:880px; margin:0 auto; display:flex; flex-direction:column; gap:24px}
+.wrap > *{min-width:0}
+#topic{width:100%}
 h1,h2,h3{font-weight:800; line-height:1.05; margin:0; text-wrap:balance}
 h1{font-size:clamp(2rem, 5vw, 3rem)}
 h2{font-size:1.75rem}
@@ -42,6 +44,8 @@ p{margin:0}
 code,.mono{font-family:var(--f-code)}
 .tile{background:var(--tile); border:3px solid var(--line); border-radius:var(--r-tile); box-shadow:6px 6px 0 var(--line); padding:24px; display:flex; flex-direction:column; gap:16px; min-width:0}
 .head-row{display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:flex-start}
+.head-text{flex:1 1 320px; display:flex; flex-direction:column; gap:8px; min-width:0}
+.how{margin:0; padding-left:1.2em; display:flex; flex-direction:column; gap:2px}
 .sub{color:var(--muted)}
 .label{font-size:.8rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase}
 
@@ -57,27 +61,31 @@ button{font:inherit; color:var(--ink); cursor:pointer}
 
 /* progress */
 .progress{display:flex; flex-direction:column; gap:8px}
-.segs{display:flex; gap:16px; flex-wrap:wrap}
+.segs{display:flex; gap:12px; flex-wrap:wrap}
+.prog-text{font-weight:600; font-size:1rem}
 .seg-group{display:flex; gap:4px}
-.seg{width:28px; height:16px; border:2px solid var(--line); border-radius:var(--r-pill); background:transparent}
+.seg{width:20px; height:14px; border:2px solid var(--line); border-radius:var(--r-pill); background:transparent}
 .seg.on{background:var(--mint); border-color:var(--ink)}
 
 /* tabs */
 .tabs{display:flex; flex-wrap:wrap; gap:12px}
 .tab{min-height:48px; padding:8px 20px; border:3px solid var(--line); border-radius:var(--r-pill); background:var(--tile); color:var(--text); font-weight:600;
-  box-shadow:5px 4px 0 var(--line); display:flex; gap:10px; align-items:center}
+  box-shadow:5px 4px 0 var(--line); display:flex; gap:10px; align-items:center; text-decoration:none}
+.tab .n{font-family:var(--f-code); font-weight:700}
 .tab[aria-current="page"]{background:var(--butter); color:var(--ink); border-color:var(--ink); box-shadow:5px 4px 0 var(--ink)}
 .tab .count{font-family:var(--f-code); font-size:.85rem}
 
 /* vocab */
 .vocab{background:var(--butter); color:var(--ink); border-color:var(--ink); box-shadow:6px 6px 0 var(--ink)}
-.vocab dl{margin:0; display:flex; flex-direction:column; gap:12px}
+.vocab dl{margin:0; display:flex; flex-direction:column; gap:14px}
+.vocab dl > div{display:grid; grid-template-columns:minmax(0,13rem) 1fr; gap:4px 20px; align-items:baseline; padding-top:12px; border-top:2px solid var(--ink)}
+.vocab dl > div:first-child{border-top:0; padding-top:0}
 .vocab dt{font-weight:800; font-size:1.1rem}
 .vocab dd{margin:0}
 .vocab code{background:var(--tile); color:var(--text); border:2px solid var(--ink); border-radius:8px; padding:0 6px; white-space:nowrap}
 
 /* code panel */
-.code{background:var(--code-bg); color:var(--code-fg); border-radius:var(--r-inner); padding:14px 18px; font-family:var(--f-code); font-size:1rem;
+.code{margin:0; background:var(--code-bg); color:var(--code-fg); border-radius:var(--r-inner); padding:14px 18px; font-family:var(--f-code); font-size:1rem;
   overflow-x:auto; white-space:pre; border:3px solid var(--ink)}
 .t-str{color:var(--c-str)} .t-num{color:var(--c-num)} .t-fn{color:var(--c-fn)} .t-op{color:var(--c-op); font-weight:700}
 .inline-code{font-family:var(--f-code); background:var(--code-bg); color:var(--code-fg); border-radius:6px; padding:1px 6px; white-space:nowrap}
@@ -89,16 +97,19 @@ button{font:inherit; color:var(--ink); cursor:pointer}
 .status{display:flex; gap:6px; align-items:center; font-weight:600; border:2px solid var(--ink); border-radius:var(--r-pill); padding:2px 12px; color:var(--ink); background:var(--mint)}
 .ex.done{border-color:var(--ink)}
 .ex.done .ex-num{background:var(--mint); color:var(--ink); border-color:var(--ink)}
-.prompt{font-size:1.1rem; max-width:65ch}
+.prompt{font-size:1.15rem; font-weight:600; max-width:65ch}
+.prompt code{font-family:var(--f-code); font-weight:400; font-size:.95em; background:var(--code-bg); color:var(--code-fg); border-radius:6px; padding:1px 6px; white-space:nowrap}
 .field{display:flex; flex-direction:column; gap:6px}
 .field label{font-weight:600}
 .answer{width:100%; min-height:48px; padding:10px 14px; border:3px solid var(--line); border-radius:var(--r-inner); background:var(--tile); color:var(--text);
-  font-family:var(--f-code); font-size:1rem}
+  font-family:var(--f-code); font-size:1rem; line-height:1.45; display:block; resize:none; overflow:hidden; overflow-wrap:anywhere}
 
 /* sort rows */
-.sort-list{display:flex; flex-direction:column; gap:10px; list-style:none; margin:0; padding:0}
-.sort-row{display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:2px dashed var(--line)}
-.sort-row:last-child{border-bottom:0}
+.sort-list{display:grid; grid-template-columns:max-content 1fr; list-style:none; margin:0; padding:0}
+.sort-row{display:contents}
+.sort-row > *{padding-block:10px; border-bottom:2px dashed var(--line)}
+.sort-row:last-child > *{border-bottom:0}
+.sort-cell{display:flex; align-items:center; padding-right:20px}
 .sort-val{min-width:0}
 .choices{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
 .choice{min-height:44px; min-width:96px; padding:6px 14px; border:3px solid var(--line); border-radius:var(--r-pill); background:var(--tile); color:var(--text); font-weight:600}
@@ -115,12 +126,15 @@ button{font:inherit; color:var(--ink); cursor:pointer}
 .why{background:var(--mint); color:var(--ink); border:3px solid var(--ink); border-radius:var(--r-inner); padding:14px 18px; display:flex; flex-direction:column; gap:8px}
 .why .code{border-color:var(--ink)}
 .why.reveal{background:var(--peach)}
-.next-row{display:flex; justify-content:flex-end; flex-wrap:wrap; gap:12px}
+.next-row{display:flex; justify-content:flex-end; align-items:center; flex-wrap:wrap; gap:16px}
+.topic-done{font-weight:600; display:flex; gap:6px; align-items:center}
 .foot{color:var(--muted); font-size:.9rem; text-align:center}
 .clear-btn{background:none; border:0; color:var(--muted); text-decoration:underline; min-height:44px; padding:0 8px; font-size:.9rem}
 
 @media (prefers-reduced-motion: reduce){ .btn,.tab{transition:none} .btn:hover{transform:none} }
-@media (max-width:520px){ .tile{padding:18px} body{font-size:17px} .choice{min-width:80px} }
+@media (max-width:560px){ .tile{padding:18px} body{font-size:17px} .choice{min-width:72px}
+  .sort-list{grid-template-columns:1fr} .sort-cell{border-bottom:0 !important; padding-bottom:0}
+  .vocab dl > div{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -128,15 +142,20 @@ button{font:inherit; color:var(--ink); cursor:pointer}
 <main class="wrap">
   <header class="tile">
     <div class="head-row">
-      <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="head-text">
         <h1>Data Types Crash Course</h1>
-        <p class="sub">Strings, numbers, concatenation, operators, and math statements. 25 short exercises, about 25 minutes.</p>
+        <p class="sub">5 topics, 25 short exercises, about 25 minutes.</p>
+        <ol class="how">
+          <li>Read the vocab at the top of each topic.</li>
+          <li>Do each exercise, then click Check.</li>
+          <li>Stuck after 2 tries? Click Show answer.</li>
+        </ol>
       </div>
       <button class="btn" id="fsBtn" type="button">Full screen</button>
     </div>
     <div class="progress">
       <div class="segs" id="segs" aria-hidden="true"></div>
-      <p id="progText" class="label"></p>
+      <p id="progText" class="prog-text"></p>
     </div>
   </header>
 
@@ -191,16 +210,16 @@ const EX = [
   { id:"s2", topic:"strings", kind:"show", prompt:"What shows in the console?",
     code:'console.log("Go team");', answers:["Go team"],
     why:"The quotes tell App Lab where the string starts and ends. The console does not show them." },
-  { id:"s3", topic:"strings", kind:"write", prompt:"Write a line that shows the word Hello in the console.",
+  { id:"s3", topic:"strings", kind:"write", prompt:"Show the word Hello in the console. Use <code>console.log</code>.",
     answers:['console.log("Hello")'],
     hints:[[/console\.log\(\s*Hello\s*\)/, "Hello is text, so it needs quotes around it."]],
     why:"Text needs quotes. Without them, App Lab looks for something named Hello and finds nothing.",
     model:'console.log("Hello");' },
-  { id:"s4", topic:"strings", kind:"fix", prompt:"This line gives an error. Fix it so it shows Good morning.",
+  { id:"s4", topic:"strings", kind:"fix", prompt:"This line gives an error. Fix it so the console shows Good morning.",
     code:'console.log(Good morning);', answers:['console.log("Good morning")'],
     why:"Without quotes, App Lab thinks Good is a name it should look up. Quotes tell it this is text.",
     model:'console.log("Good morning");' },
-  { id:"s5", topic:"strings", kind:"write", prompt:"Write a line that makes labelTitle show the text Welcome.",
+  { id:"s5", topic:"strings", kind:"write", prompt:"Make <code>labelTitle</code> show the text Welcome. Use <code>setText</code>.",
     answers:['setText("labelTitle","Welcome")'],
     hints:[[/setText\(\s*labelTitle/, "The element ID is a string too. Put quotes around labelTitle."],
            [/,\s*Welcome\s*\)/, "Welcome is text, so it needs quotes."]],
@@ -220,14 +239,14 @@ const EX = [
     code:'console.log("8 + 2");', answers:["8 + 2"],
     wrong:{"10":"Look at the quotes. Everything inside them is a string.", "82":"Everything is inside one pair of quotes. App Lab shows it exactly as typed."},
     why:"Everything inside the quotes is one string. App Lab shows it exactly as typed and does no math." },
-  { id:"n4", topic:"numbers", kind:"write", prompt:"Write a line that shows 6 times 7 in the console. Let App Lab do the math.",
+  { id:"n4", topic:"numbers", kind:"write", prompt:"Show 6 times 7 in the console. Let App Lab do the math.",
     answers:['console.log(6*7)','console.log(7*6)'],
     hints:[[/\d\s*[xX×]\s*\d/, "In code, multiply uses *, not x."],
            [/"/, "Numbers need no quotes. With quotes, App Lab shows the text and does no math."],
            [/42/, "Let App Lab do the math. Use 6 and 7 in your line."]],
     why:"* means multiply. There are no quotes, so App Lab does the math and shows 42.",
     model:'console.log(6 * 7);' },
-  { id:"n5", topic:"numbers", kind:"fix", prompt:"A student types 14 into text_inputAge. This line shows 141, not 15. Fix it.",
+  { id:"n5", topic:"numbers", kind:"fix", prompt:"A student types 14 into <code>text_inputAge</code>. This line shows 141, not 15. Fix it.",
     code:'console.log(getText("text_inputAge") + 1);', answers:['console.log(getNumber("text_inputAge")+1)'],
     hints:[[/getText/, "getText still gives a string. Which statement gives a number?"],
            [/getNumber\(\s*text_inputAge/, "The element ID is a string. Keep the quotes around text_inputAge."]],
@@ -253,7 +272,7 @@ const EX = [
     hints:[[/^\s*console\.log\(\s*"Hello\s+Sam"\s*\)\s*;?\s*$/, "That shows Hello Sam, but keep the + and join two strings."]],
     why:"+ never adds a space. Put the space inside the quotes, at the end of \"Hello \" or the start of \" Sam\".",
     model:'console.log("Hello " + "Sam");' },
-  { id:"c5", topic:"concat", kind:"write", prompt:"Write one line. Make labelGreeting show Hi, a space, then the name typed in text_inputName.",
+  { id:"c5", topic:"concat", kind:"write", prompt:"Make <code>labelGreeting</code> show Hi, a space, then the name typed in <code>text_inputName</code>. Use one line.",
     answers:['setText("labelGreeting","Hi "+getText("text_inputName"))'],
     hints:[[/getText\(\s*text_inputName/, "The element ID needs quotes. Write getText(\"text_inputName\")."],
            [/setText\(\s*labelGreeting/, "The element ID needs quotes. Write \"labelGreeting\"."],
@@ -276,7 +295,7 @@ const EX = [
     code:'console.log(2 + 3 * 4);', answers:["14"],
     wrong:{"20":"App Lab multiplies before it adds. Do 3 * 4 first."},
     why:"App Lab does * before +. 3 * 4 is 12, then 2 + 12 is 14." },
-  { id:"o4", topic:"operators", kind:"write", prompt:"Write a line that shows the average of 80 and 90 in the console. Add them, then divide by 2.",
+  { id:"o4", topic:"operators", kind:"write", prompt:"Show the average of 80 and 90 in the console. Add them, then divide by 2.",
     answers:['console.log((80+90)/2)','console.log((90+80)/2)'],
     hints:[[/^\s*console\.log\(\s*(80\s*\+\s*90|90\s*\+\s*80)\s*\/\s*2\s*\)/, "Without parentheses, App Lab divides first. Put ( ) around the two numbers you add."],
            [/85/, "Let App Lab do the math. Use 80, 90, and 2 in your line."],
@@ -284,7 +303,7 @@ const EX = [
            [/÷/, "In code, divide uses /."]],
     why:"Parentheses go first, so 80 + 90 makes 170. Then 170 / 2 is 85.",
     model:'console.log((80 + 90) / 2);' },
-  { id:"o5", topic:"operators", kind:"fix", prompt:"Tickets cost $4 each. A student types 3 into text_inputTickets. This shows Total: $34. Fix it so it shows Total: $12.",
+  { id:"o5", topic:"operators", kind:"fix", prompt:"Tickets cost $4 each. A student types 3 into <code>text_inputTickets</code>. This shows Total: $34. Fix it so it shows Total: $12.",
     code:'setText("labelTotal", "Total: $" + getNumber("text_inputTickets") + 4);',
     answers:['setText("labelTotal","Total: $"+getNumber("text_inputTickets")*4)','setText("labelTotal","Total: $"+(getNumber("text_inputTickets")*4))'],
     hints:[[/getText/, "getText gives a string. Keep getNumber so App Lab can do math."],
@@ -306,7 +325,7 @@ const EX = [
     code:'console.log(Math.round(7.25 * 2));', answers:["15"],
     wrong:{"14":"7.25 * 2 is 14.5. A .5 rounds up.", "14.5":"That is 7.25 * 2. Now Math.round makes it a whole number.", "7":"Do the nested part first. 7.25 * 2 is 14.5."},
     why:"App Lab does the nested part first. 7.25 * 2 is 14.5. Then Math.round rounds the .5 up to 15." },
-  { id:"m4", topic:"math", kind:"write", prompt:"Write a line that makes labelRoll show a random number from 1 to 100.",
+  { id:"m4", topic:"math", kind:"write", prompt:"Make <code>labelRoll</code> show a random number from 1 to 100. Use <code>randomNumber</code>.",
     answers:['setText("labelRoll",randomNumber(1,100))'],
     hints:[[/"randomNumber/, "With quotes, labelRoll shows the word randomNumber. Take those quotes off so App Lab runs it."],
            [/Math\.random/, "In App Lab, use randomNumber(1, 100)."],
@@ -428,10 +447,10 @@ function renderHeader(){
   $("#progText").textContent = total === EX.length ? `All ${EX.length} done. Nice work.` : `${total} of ${EX.length} done`;
   const tabs = $("#tabs"); tabs.innerHTML = "";
   const cur = currentTopic();
-  TOPICS.forEach(t => {
+  TOPICS.forEach((t, ti) => {
     const d = doneIn(t.id);
     tabs.append(el("a", {class:"tab", href:"#" + t.id, "aria-current": t.id === cur ? "page" : false},
-      t.name, el("span", {class:"count"}, `${d}/5`), d === 5 ? el("span", {html:ICON_OK, "aria-label":"done"}) : null));
+      el("span", {class:"n", "aria-hidden":"true"}, String(ti+1)), t.name, el("span", {class:"count"}, `${d}/5`), d === 5 ? el("span", {html:ICON_OK, "aria-label":"done"}) : null));
   });
 }
 
@@ -461,9 +480,8 @@ function renderExercise(ex, idx){
     el("div", {class:"ex-kind"}, el("span", {class:"ex-num", "aria-hidden":"true"}, String(idx+1)),
       el("h3", {id:"h-" + ex.id}, el("span", {class:"label"}, KIND[ex.kind]))),
     done ? el("span", {class:"status", html: ICON_OK + "<span>Done</span>"}) : null));
-  tile.append(el("p", {class:"prompt"}, ex.prompt));
+  tile.append(el("p", {class:"prompt", html:ex.prompt}));
   if (ex.code && ex.kind !== "fix") tile.append(codeBlock(ex.code));
-  if (ex.kind === "fix") tile.append(el("p", {class:"label"}, "Broken line"), codeBlock(ex.code));
 
   const fb = feedbackNode();
   const area = el("div", {class:"why-slot"});
@@ -479,6 +497,7 @@ function renderExercise(ex, idx){
     tile.classList.add("done");
     if (!tile.querySelector(".status")) tile.querySelector(".ex-top").append(el("span", {class:"status", html: ICON_OK + "<span>Done</span>"}));
     renderHeader();
+    if (doneIn(ex.topic) === 5) renderTopic();
   }
 
   if (ex.kind === "sort"){
@@ -499,7 +518,7 @@ function renderExercise(ex, idx){
       });
       group.append(mark);
       const v = el("code", {class:"sort-val inline-code"}); v.append(highlight(val));
-      list.append(el("li", {class:"sort-row"}, v, group));
+      list.append(el("li", {class:"sort-row"}, el("div", {class:"sort-cell"}, v), group));
     });
     tile.append(list);
     const check = el("button", {class:"btn primary", type:"button"}, "Check");
@@ -510,7 +529,7 @@ function renderExercise(ex, idx){
       list.querySelectorAll(".mark").forEach((m, i) => {
         const ok = p[i] === ex.items[i][1]; if (!ok) wrong++;
         m.className = "mark " + (ok ? "ok" : "no");
-        m.innerHTML = (ok ? ICON_OK : ICON_NO) + `<span>${ok ? "Right" : "Fix"}</span>`;
+        m.innerHTML = (ok ? ICON_OK : ICON_NO) + `<span>${ok ? "Right" : "Try again"}</span>`;
       });
       if (wrong === 0){ setFeedback(fb, true, ""); win(); }
       else { setFeedback(fb, false, `${wrong} ${wrong === 1 ? "answer needs" : "answers need"} another look. Check for quotes.`); miss(); }
@@ -518,12 +537,14 @@ function renderExercise(ex, idx){
     btns.append(check, showBtn);
   } else {
     const inputId = "in-" + ex.id;
-    const labelText = ex.kind === "show" ? "The console shows" : ex.kind === "fix" ? "Your fixed line" : "Your line of code";
+    const labelText = ex.kind === "show" ? "The console shows" : ex.kind === "fix" ? "Fix this line" : "Your line of code";
     const start = draft[ex.id] ?? (done ? (ex.kind === "show" ? ex.answers[0] : ex.model) : (ex.kind === "fix" ? ex.code : ""));
-    const input = el("input", {class:"answer", id:inputId, type:"text", autocomplete:"off", autocapitalize:"off", autocorrect:"off", spellcheck:"false",
-      placeholder: ex.kind === "show" ? "Type exactly what you see" : ""});
+    const input = el("textarea", {class:"answer", id:inputId, rows:"1", autocomplete:"off", autocapitalize:"off", autocorrect:"off", spellcheck:"false",
+      placeholder: ex.kind === "show" ? "Type it exactly" : ex.kind === "write" ? "Type one line of code" : ""});
     input.value = start;
-    input.addEventListener("input", () => { draft[ex.id] = input.value; });
+    const fit = () => { input.style.height = "auto"; input.style.height = input.scrollHeight + 6 + "px"; };
+    input.addEventListener("input", () => { input.value = input.value.replace(/\n/g, " "); draft[ex.id] = input.value; fit(); });
+    requestAnimationFrame(fit); window.addEventListener("resize", fit);
     const check = el("button", {class:"btn primary", type:"button"}, "Check");
     const run = () => {
       const r = ex.kind === "show" ? checkShow(ex, input.value) : checkCode(ex, input.value);
@@ -535,7 +556,7 @@ function renderExercise(ex, idx){
     btns.append(check);
     if (ex.kind === "fix"){
       const reset = el("button", {class:"btn", type:"button"}, "Reset line");
-      reset.addEventListener("click", () => { input.value = ex.code; draft[ex.id] = ex.code; input.focus(); });
+      reset.addEventListener("click", () => { input.value = ex.code; draft[ex.id] = ex.code; fit(); input.focus(); });
       btns.append(reset);
     }
     btns.append(showBtn);
@@ -552,15 +573,19 @@ function renderTopic(){
   const v = el("div", {class:"tile vocab"});
   v.append(el("h2", {}, t.name), el("p", {class:"label"}, "Vocab"));
   const dl = el("dl");
-  t.vocab.forEach(([term, def]) => dl.append(el("dt", {html:term}), el("dd", {html:def})));
+  t.vocab.forEach(([term, def]) => dl.append(el("div", {}, el("dt", {html:term}), el("dd", {html:def}))));
   v.append(dl);
   sec.append(v);
   EX.filter(e => e.topic === id).forEach((e, i) => sec.append(renderExercise(e, i)));
   const ti = TOPICS.findIndex(x => x.id === id);
+  const row = el("div", {class:"next-row"});
+  const allDone = Object.values(state.done).filter(Boolean).length === EX.length;
+  if (doneIn(id) === 5) row.append(el("p", {class:"topic-done", html: ICON_OK + `<span>${allDone ? "You finished all 25. Nice work." : "All 5 done in " + t.name + "."}</span>`}));
   if (ti < TOPICS.length - 1){
     const nx = TOPICS[ti+1];
-    sec.append(el("div", {class:"next-row"}, el("a", {class:"btn primary", href:"#" + nx.id, style:"text-decoration:none;display:inline-flex;align-items:center"}, `Next: ${nx.name}`)));
+    row.append(el("a", {class:"btn primary", href:"#" + nx.id, style:"text-decoration:none;display:inline-flex;align-items:center"}, `Next: ${nx.name}`));
   }
+  sec.append(row);
 }
 
 function render(){ renderHeader(); renderTopic(); }
