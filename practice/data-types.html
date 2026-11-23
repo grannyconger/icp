@@ -130,7 +130,7 @@ button{font:inherit; color:var(--ink); cursor:pointer}
     <div class="head-row">
       <div style="display:flex;flex-direction:column;gap:8px">
         <h1>Data Types Crash Course</h1>
-        <p class="sub">Strings, numbers, and concatenation. 15 short exercises, about 15 minutes.</p>
+        <p class="sub">Strings, numbers, concatenation, and operators. 20 short exercises, about 20 minutes.</p>
       </div>
       <button class="btn" id="fsBtn" type="button">Full screen</button>
     </div>
@@ -165,6 +165,12 @@ const TOPICS = [
       ["concatenation", "Joining strings into one string with <code>+</code>."],
       ["When does + join?", "If either side is a string, <code>+</code> joins. Only two numbers get added."],
       ["Spaces", "<code>+</code> never adds a space. Put the space inside the quotes, like <code>\"Hi \"</code>."]
+    ]},
+  { id:"operators", name:"Operators",
+    vocab:[
+      ["operator", "A symbol that does math: <code>+</code> add, <code>-</code> subtract, <code>*</code> multiply, <code>/</code> divide, <code>%</code> remainder."],
+      ["<code>%</code> remainder", "What is left over after dividing. <code>17 % 5</code> is 2, because 5 goes into 17 three times with 2 left."],
+      ["Order of operations", "App Lab does <code>*</code> <code>/</code> <code>%</code> before <code>+</code> <code>-</code>. Parentheses always go first."]
     ]}
 ];
 
@@ -249,7 +255,37 @@ const EX = [
            [/"Hi"\s*\+/, "Add a space inside the quotes after Hi."],
            [/"Hi,/, "Use just Hi and a space, with no comma."]],
     why:"getText gives the name as a string. + joins it after \"Hi \". The space inside the quotes keeps the words apart.",
-    model:'setText("labelGreeting", "Hi " + getText("text_inputName"));' }
+    model:'setText("labelGreeting", "Hi " + getText("text_inputName"));' },
+
+  // ---------- OPERATORS ----------
+  { id:"o1", topic:"operators", kind:"sort", prompt:"What does each operator do? Click one for each.",
+    options:["Add","Subtract","Multiply","Divide","Remainder"],
+    items:[['8 - 3',1],['8 * 3',2],['8 % 3',4],['8 + 3',0],['8 / 2',3]],
+    why:"* is multiply and / is divide. % gives the remainder, what is left over after dividing." },
+  { id:"o2", topic:"operators", kind:"show", prompt:"What shows in the console?",
+    code:'console.log(17 % 5);', answers:["2"],
+    wrong:{"3.4":"That is 17 / 5. % gives what is left over, not the division answer.", "3":"5 goes into 17 three times. What is left over?", "15":"5 goes into 17 three times, which is 15. What is left over?"},
+    why:"5 goes into 17 three times, which makes 15. 17 minus 15 leaves 2. That leftover is the remainder." },
+  { id:"o3", topic:"operators", kind:"show", prompt:"What shows in the console? Think about which operator goes first.",
+    code:'console.log(2 + 3 * 4);', answers:["14"],
+    wrong:{"20":"App Lab multiplies before it adds. Do 3 * 4 first."},
+    why:"App Lab does * before +. 3 * 4 is 12, then 2 + 12 is 14." },
+  { id:"o4", topic:"operators", kind:"write", prompt:"Write a line that shows the average of 80 and 90 in the console. Add them, then divide by 2.",
+    answers:['console.log((80+90)/2)','console.log((90+80)/2)'],
+    hints:[[/^\s*console\.log\(\s*(80\s*\+\s*90|90\s*\+\s*80)\s*\/\s*2\s*\)/, "Without parentheses, App Lab divides first. Put ( ) around the two numbers you add."],
+           [/85/, "Let App Lab do the math. Use 80, 90, and 2 in your line."],
+           [/"/, "Numbers need no quotes. With quotes, App Lab shows the text and does no math."],
+           [/÷/, "In code, divide uses /."]],
+    why:"Parentheses go first, so 80 + 90 makes 170. Then 170 / 2 is 85.",
+    model:'console.log((80 + 90) / 2);' },
+  { id:"o5", topic:"operators", kind:"fix", prompt:"Tickets cost $4 each. A student types 3 into text_inputTickets. This shows Total: $34. Fix it so it shows Total: $12.",
+    code:'setText("labelTotal", "Total: $" + getNumber("text_inputTickets") + 4);',
+    answers:['setText("labelTotal","Total: $"+getNumber("text_inputTickets")*4)','setText("labelTotal","Total: $"+(getNumber("text_inputTickets")*4))'],
+    hints:[[/getText/, "getText gives a string. Keep getNumber so App Lab can do math."],
+           [/\+\s*\(\s*getNumber\([^)]*\)\s*\+\s*4\s*\)/, "That adds 4. Tickets cost $4 each, so multiply."],
+           [/\+\s*4\s*\)?\s*\)\s*;?\s*$/, "The last + joins, because the left side is a string. Which operator multiplies?"]],
+    why:'* goes before +, so App Lab does 3 * 4 first and gets 12. Then + joins 12 onto "Total: $".',
+    model:'setText("labelTotal", "Total: $" + getNumber("text_inputTickets") * 4);' }
 ];
 
 /* ---------- state ---------- */
@@ -353,7 +389,7 @@ function renderHeader(){
     segs.append(g);
   }
   const total = Object.keys(state.done).filter(k => state.done[k]).length;
-  $("#progText").textContent = total === EX.length ? "All 15 done. Nice work." : `${total} of ${EX.length} done`;
+  $("#progText").textContent = total === EX.length ? `All ${EX.length} done. Nice work.` : `${total} of ${EX.length} done`;
   const tabs = $("#tabs"); tabs.innerHTML = "";
   const cur = currentTopic();
   TOPICS.forEach(t => {
